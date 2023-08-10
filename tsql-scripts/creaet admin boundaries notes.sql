@@ -1,4 +1,5 @@
-
+Use GNAF;
+GO
 -- We need first to use ogr2ogr to create raw admin files within the schema `raw_admin_bdys`
 -- raw_admin_bdys.aus_localities
 -- raw_admin_bdys.aus_state_polygon

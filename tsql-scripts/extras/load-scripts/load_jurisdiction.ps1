@@ -1,7 +1,7 @@
 Param(
-# [string]$serverName,
-# [string]$databaseName,
-# [string]$jurisdictionFilesPath
+    # [string]$serverName,
+    # [string]$databaseName,
+    # [string]$jurisdictionFilesPath
 )
 
 # --- orig
@@ -24,18 +24,18 @@ Param(
 
 # --- updated
 
-$servrName = 'LA326861'
+$serverName = 'localhost'
 $databaseName = 'GNAF'
-$jurisdictionFilesPath = 'C:\Developer\data\g-naf_may23_allstates_gda2020_psv_1011\G-NAF\G-NAF MAY 2023\Standard'
+$jurisdictionFilesPath = 'C:\Users\AndrewWoodall\Development\sql-learning\gnaf-loader\g-naf_may23_allstates_gda2020_psv_1011\G-NAF\G-NAF MAY 2023\Standard'
 
 
-$jurisdictionName = @("ACT","QLD", "NSW","NT","OT","SA","TAS","VIC","WA")
-foreach ($node in $jurisdictionName){
-    $filter = $node+"_*.psv"
+$jurisdictionName = @("ACT", "QLD", "NSW", "NT", "OT", "SA", "TAS", "VIC", "WA")
+foreach ($node in $jurisdictionName) {
+    $filter = $node + "_*.psv"
 
     Get-ChildItem $jurisdictionFilesPath -Filter $filter |
     Foreach-Object {
-        $tableName = $_.name.Replace($node+"_", "").Replace("_psv.psv", "")
+        $tableName = $_.name.Replace($node + "_", "").Replace("_psv.psv", "")
         write-host "Procesing" $_.Name "into table" $tableName
         bcp $tableName in $_.FullName -d $databaseName -S $serverName -t"|" -c -T -F 2
     }
